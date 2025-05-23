@@ -17,6 +17,22 @@
 
 package org.apache.apisix.plugin.runner.server;
 
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.ObjectProvider;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.CommandLineRunner;
+import org.springframework.stereotype.Component;
+
 import com.google.common.cache.Cache;
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.ChannelFuture;
@@ -32,9 +48,9 @@ import io.netty.channel.unix.DomainSocketAddress;
 import io.netty.channel.unix.DomainSocketChannel;
 import io.netty.handler.logging.LoggingHandler;
 import lombok.RequiredArgsConstructor;
+
 import org.apache.apisix.plugin.runner.A6Conf;
 import org.apache.apisix.plugin.runner.A6ConfigWatcher;
-import org.apache.apisix.plugin.runner.exception.ExceptionCaught;
 import org.apache.apisix.plugin.runner.filter.PluginFilter;
 import org.apache.apisix.plugin.runner.handler.PrepareConfHandler;
 import org.apache.apisix.plugin.runner.handler.RpcCallHandler;
@@ -42,23 +58,7 @@ import org.apache.apisix.plugin.runner.handler.PayloadDecoder;
 import org.apache.apisix.plugin.runner.handler.BinaryProtocolDecoder;
 import org.apache.apisix.plugin.runner.handler.PayloadEncoder;
 import org.apache.apisix.plugin.runner.handler.ExceptionCaughtHandler;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.ObjectProvider;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.CommandLineRunner;
-import org.springframework.stereotype.Component;
-
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.util.List;
-import java.util.ArrayList;
-import java.util.Map;
-import java.util.HashMap;
-import java.util.ServiceLoader;
-import java.util.stream.Collectors;
+import org.apache.apisix.plugin.runner.exception.ExceptionCaught;
 
 @Component
 @RequiredArgsConstructor
